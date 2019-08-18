@@ -1,7 +1,7 @@
 const UserService = require('../services/UserService');
 const Util = require('../utils/Utils');
 const Socket = require('../utils/socket');
-const { createJWTToken } = require('../utils/auth');
+const { createJWTToken } = require('../utils/jwt');
 
 const util = new Util();
 

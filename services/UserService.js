@@ -6,6 +6,7 @@ class UserService {
     return new Promise((resolve, reject) => {
       db.users.find({}, (err, data) => {
          if (err) return reject(err);
+         data.forEach(user => delete user.password);
          return resolve(data);
       });
     });
