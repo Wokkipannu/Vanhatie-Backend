@@ -1,7 +1,7 @@
 const UserService = require('../services/UserService');
 const Util = require('../utils/Utils');
 const Socket = require('../utils/socket');
-const { createJWTToken } = require('../utils/jwt');
+const { createJWTToken, verifyJWTToken } = require('../utils/jwt');
 
 const util = new Util();
 
@@ -113,6 +113,31 @@ class UserController {
     }
     catch(error) {
       util.setError(400, error);
+      return util.send(res);
+    }
+  }
+
+  static async verifyToken(req, res) {
+    const { token } = req.body;
+    
+    if (!token) {
+      util.setError(400, 'Missing token');
+      return util.send(res);
+    }
+
+    try {
+      verifyJWTToken(token)
+        .then(data => {
+          util.setSuccess(200, 'Token verified', data);
+          return util.send(res);
+        })
+        .catch(error => {
+          util.setError(404, error);
+          return util.send(res);
+        });
+    }
+    catch(error) {
+      util.setError(404, error);
       return util.send(res);
     }
   }

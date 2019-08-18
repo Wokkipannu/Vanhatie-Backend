@@ -13,5 +13,6 @@ router.post('/', UserController.addUser);
 
 //router.put('/:id', UserController.updateUser);
 router.post('/login', UserController.login);
+router.post('/token', UserController.verifyToken);
 
 module.exports = router;
