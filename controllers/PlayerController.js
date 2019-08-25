@@ -61,14 +61,14 @@ class PlayerController {
   }
 
   static async addPlayer(req, res) {
-    const { name, dkp } = req.body;
-    if (!name || !dkp) {
+    const { name, dkp, discord } = req.body;
+    if (!name || !dkp || !discord) {
       util.setError(400, 'Missing required information');
       return util.send(res);
     }
 
     try {
-      PlayerService.addPlayer({ name: name, dkp: dkp })
+      PlayerService.addPlayer({ name: name, dkp: dkp, discord: discord })
         .then(player => {
           if (player) {
             util.setSuccess(201, 'Player added', player);
